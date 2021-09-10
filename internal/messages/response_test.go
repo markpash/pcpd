@@ -3,6 +3,8 @@ package messages
 import (
 	"testing"
 
+	"github.com/markpash/pcpd/internal/testutil"
+
 	"github.com/google/go-cmp/cmp"
 	"inet.af/netaddr"
 )
@@ -51,7 +53,7 @@ func TestResponseMarshalUnmarshal(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if diff := cmp.Diff(r, after, cmp.Comparer(ipComparer)); diff != "" {
+			if diff := cmp.Diff(r, after, testutil.NetaddrCmp()...); diff != "" {
 				t.Fatal(diff)
 			}
 		})

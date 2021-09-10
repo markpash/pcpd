@@ -3,11 +3,11 @@ package messages
 import (
 	"testing"
 
+	"github.com/markpash/pcpd/internal/testutil"
+
 	"github.com/google/go-cmp/cmp"
 	"inet.af/netaddr"
 )
-
-func ipComparer(x, y netaddr.IP) bool { return x == y }
 
 // TestRequestParse uses real requests from a pcap
 func TestRequestParse(t *testing.T) {
@@ -29,7 +29,7 @@ func TestRequestParse(t *testing.T) {
 			t.Error(err)
 		}
 
-		if diff := cmp.Diff(want, got, cmp.Comparer(ipComparer)); diff != "" {
+		if diff := cmp.Diff(want, got, testutil.NetaddrCmp()...); diff != "" {
 			t.Fatal(diff)
 		}
 	})
@@ -76,7 +76,7 @@ func TestRequestMarshalUnmarshal(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			if diff := cmp.Diff(r, after, cmp.Comparer(ipComparer)); diff != "" {
+			if diff := cmp.Diff(r, after, testutil.NetaddrCmp()...); diff != "" {
 				t.Fatal(diff)
 			}
 		})

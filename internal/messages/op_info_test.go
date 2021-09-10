@@ -3,6 +3,8 @@ package messages
 import (
 	"testing"
 
+	"github.com/markpash/pcpd/internal/testutil"
+
 	"github.com/google/go-cmp/cmp"
 	"inet.af/netaddr"
 )
@@ -24,7 +26,7 @@ func TestMapInfo(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if diff := cmp.Diff(before, after, cmp.Comparer(ipComparer)); diff != "" {
+	if diff := cmp.Diff(before, after, testutil.NetaddrCmp()...); diff != "" {
 		t.Fatal(diff)
 	}
 }
@@ -48,7 +50,7 @@ func TestPeerInfo(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	if diff := cmp.Diff(before, after, cmp.Comparer(ipComparer)); diff != "" {
+	if diff := cmp.Diff(before, after, testutil.NetaddrCmp()...); diff != "" {
 		t.Fatal(diff)
 	}
 }
